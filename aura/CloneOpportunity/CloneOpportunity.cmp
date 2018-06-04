@@ -1,0 +1,86 @@
+<aura:component controller="CloneOpportunityController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <ltng:require styles="{!$Resource.CopyOppStyle}"/>
+    
+    <!-- handlers  -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="title" type="String" default="Edit Cloned Products"/>
+    <aura:attribute name="lstLineItems" type="OpportunityLineItem[]"/>
+    <header class="slds-modal__header">
+        <h2 class="slds-text-heading_medium">
+            <strong><ui:outputText value="{!v.title}" /></strong>
+        </h2>
+    </header>
+    <div style="height: 350px;max-height:350px;overflow-y: auto !important;">
+        <div class="slds-table_edit_container slds-is-relative">
+            <table class="slds-table forceRecordLayout slds-table--header-fixed slds-table--edit slds-table--bordered resizable-cols slds-table--resizable-cols uiVirtualDataTable" role="grid">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col" style="width: 50px;">
+                            <div class="slds-th__action">
+                                <span class="slds-assistive-text">Errors</span>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-text-title_caps" aria-label="Product">
+                            <span class="slds-required requiredHeader">*</span>
+                            <span class="slds-truncate" title="Product">Product</span>
+                        </th>
+                        <th scope="col" class="slds-text-title_caps" aria-label="Quantity">
+                            <span class="slds-required requiredHeader">*</span>
+                            <span class="slds-truncate" title="Product">Quantity</span>
+                        </th>
+                        <th scope="col" class="slds-text-title_caps" aria-label="Sales Price">
+                            <span class="slds-required requiredHeader">*</span>
+                            <span class="slds-truncate" title="Product">Sales Price</span>
+                        </th>
+                        <th scope="col" class="slds-text-title_caps" aria-label="Date">
+                            <span class="slds-truncate" title="Product">Date</span>
+                        </th>
+                        <th scope="col" class="slds-text-title_caps" aria-label="Line Description">
+                            <span class="slds-truncate" title="Product">Line Description</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.lstLineItems}" var="li" indexVar="i">
+                        <tr class="slds-hint-parent">
+                            <td class="slds-cell-edit" role="gridcell">
+                                <span class="slds-row-number slds-text-body_small"></span>
+                            </td>
+                            <th class="slds-cell-edit" scope="row" tabindex="0">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <a href="javascript:void(0);" class="slds-truncate" id="link-01" tabindex="-1" title="Acme - 1,200 Widgets">{!li.Product2.Name}</a>
+                                </span>
+                            </th>
+                            <td class="slds-cell-edit" scope="row" tabindex="1" style="width:150px;">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <ui:inputNumber aura:id="inputQuantity" required="true" value="{!li.Quantity}"/>
+                                </span>
+                            </td>
+                            <td class="slds-cell-edit" scope="row" tabindex="2">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <ui:inputNumber aura:id="inputUnitPrice" required="true" value="{!li.UnitPrice}"/>
+                                </span>
+                            </td>
+                            <td class="slds-cell-edit" scope="row" tabindex="3">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <ui:inputDate aura:id="date" displayDatePicker="true" value="{!li.ServiceDate}"/>
+                                </span>
+                            </td>
+                            <td class="slds-cell-edit" scope="row" tabindex="4">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <ui:inputText aura:id="description" value="{!li.Description}"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<footer class="slds-modal__footer">
+    	<lightning:button label="Cancel" onclick="{!c.doCancelAction}" />
+        <lightning:button label="Save" variant="brand" onclick="{!c.doSaveAction}" />    
+    </footer>
+</aura:component>

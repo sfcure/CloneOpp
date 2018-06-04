@@ -1,0 +1,12 @@
+.THIS input.has-error {
+    margin-bottom: 25px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(194, 57, 52);
+    box-shadow: rgb(194, 57, 52) 0 0 0 1px inset;
+    background-clip: padding-box;
+}
+.THIS ul.has-error {
+    position: absolute;
+    margin-top: 35px !important;
+    font-weight: bold;
+}
