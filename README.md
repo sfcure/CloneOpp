@@ -20,12 +20,18 @@ My Domain should be enabled in your orginzation.
 You can can check the [GitHub Repository](https://github.com/sfcure/CloneOpp) for the source code and can make any adjustments as per your need.
 
 ## Getting Started
-1. ## Adding Fields to be copied over on Opportunity ( During cloning )
+1. ## Adding Clone with Products button to page layout
+   - You will have to go to the page layout where you want to add the lightning action. Navigate to Setup and click on Object Manager tab. Search for the Opportunity and click on the Opportunity link. 
+   - Click on Page Layouts link in the left side panel. Edit the desired page layout and look for the lightning action "Clone with Product" and drag that action and drop in the pane.
+![Snapshot](https://sfcure.files.wordpress.com/2018/06/screenshot_101.png)
+   
+
+2. ## Adding Fields to be copied over on Opportunity ( During cloning )
    - First switch to Salesforce Classic view if you are in Lightning Experience ( This is because you can't access the fieldsets in LEX )
    - Navigate to Setup | Customize | Opportunity | Field Sets
    - Look for Clone Opportunity Field Set and click on Edit link
    - Here you can add/remove fields which you want to copy in cloned opportunity
-2. ## Adding Fields to be copied over on Opportunity Product ( During cloning )
+3. ## Adding Fields to be copied over on Opportunity Product ( During cloning )
    - First switch to Salesforce Classic view if you are in Lightning Experience ( This is because you can't access the fieldsets in LEX )
    - Navigate to Setup | Customize | Opportunity Products | Field Sets
    - Look for Clone Opportunity Field Set and click on Edit link
