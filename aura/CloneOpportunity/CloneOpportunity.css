@@ -1,12 +1,89 @@
-.THIS input.has-error {
-    margin-bottom: 25px;
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(194, 57, 52);
-    box-shadow: rgb(194, 57, 52) 0 0 0 1px inset;
-    background-clip: padding-box;
+.THIS.custom-modal-header {
+    margin-left: -35px !important;
+    margin-right: -35px !important;
+    margin-top: -15px !important;
 }
-.THIS ul.has-error {
-    position: absolute;
-    margin-top: 35px !important;
+
+.THIS.custom-modal-container {
+    max-height: 400px !important;
+    overflow-y: scroll !important;
+    margin-left: -32px !important;
+    margin-right: -32px !important;
+    padding: 25px !important;
+}
+
+.THIS .slds-checkbox__label{
+	display: table;
+    padding-top: 5px;
+}
+
+.THIS .slds-checkbox__label .slds-form-element__label {
+	display: table-header-group;    
+}
+.THIS .slds-checkbox__label .slds-checkbox_faux {
+	margin-top: 5px !important;  
+}
+
+.THIS .OppForm .slds-align_absolute-center{
+    position: fixed;
+    top: 90%;
+    display: block;
+    width: 100%;
+    left: 0px;
+    border-top: 2px solid rgb(221, 219, 218);
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    padding: .75rem 1rem;
+    background-color: rgb(243, 242, 242);
+    text-align: right;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16);
+}
+
+.THIS .OppForm .slds-grid {
+    margin-bottom: .75rem !important;
+}
+
+.THIS .OppForm button.slds-button.slds-button_brand[name="submit"]:after {
+    content: " & Next";
+}
+.THIS .OppForm input[disabled], .THIS .OppForm select[disabled]{
+    border: none !important;
+    background-color: white !important;
+}
+.THIS .OppForm  button[disabled]{
+    display: none !important;
+}
+.THIS.custom-modal-container .slds-dropdown_left, .THIS.custom-modal-container .slds-dropdown--left {
+	margin-left: -75px !important;    
+}
+
+.THIS.custom-modal-container .custom-docked-footer {
+	border-bottom-right-radius: .25rem !important;
+    border-bottom-left-radius: .25rem !important;
+	bottom: 2px !important; 
+    justify-content: flex-end !important;
+    padding-right: 1rem !important;
+}
+.THIS.custom-modal-container .slds-docked-form-footer{
+	justify-content: flex-end !important;
+    padding-right: 1rem !important;	
+    position: fixed !important;
+}
+.THIS.custom-modal-container button.slds-button.slds-button_brand.save-btn:after {
+    content: " & Close";
+}
+.THIS .table-container .slds-scrollable_y>div, .THIS .table-container .slds-scrollable--y>div { 
+    padding-bottom: 60px !important; 
+}
+.THIS .table-container {
+    margin: -25px!important;
+}
+.THIS .table-container table thead th span.slds-th__action>span{
     font-weight: bold;
+}
+
+.THIS .table-container table thead th span[title^='*']:before {
+    content: "*";
+    color: #f10000;
+    position: absolute;
 }

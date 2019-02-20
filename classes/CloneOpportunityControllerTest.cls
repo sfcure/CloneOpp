@@ -51,17 +51,25 @@ class CloneOpportunityControllerTest {
     @isTest
     static void getOpportunityLineItems_test() {
         
-        Opportunity opp = [SELECT Id FROM Opportunity LIMIT 1];
+        Opportunity opp = [SELECT Id, StageName, CloseDate, AccountId FROM Opportunity LIMIT 1];
         
         Test.startTest();
         
-        System.assertEquals( 1, CloneOpportunityController.getOpportunityLineItems( opp.Id ).size() );
+        String clonedOppRes = CloneOpportunityController.cloneOpportunityAndReturnProducts(opp, opp.Id);
         
-        List<OpportunityLineItem> lstOppLineItems = [SELECT Id, UnitPrice, Quantity, Description, ServiceDate FROM OpportunityLineItem ];
+        System.assertNotEquals( null, clonedOppRes );
         
-        System.assertNotEquals( null, CloneOpportunityController.cloneOpportunityWithProducts( opp.Id, lstOppLineItems ) );
+        List<Opportunity> lstOpportunity = [SELECT Id FROM Opportunity ORDER BY CreatedDate];
         
-        System.assertEquals( 2, [SELECT Id FROM Opportunity].size() );
+        System.assertEquals(2, lstOpportunity.size());
+        
+        String clonedOppId = lstOpportunity[1].Id;
+        
+        Map<Id, OpportunityLineItem> mapOppLineItems = new Map<Id, OpportunityLineItem>([SELECT Id, UnitPrice, Quantity, Description, ServiceDate FROM OpportunityLineItem ]);
+        
+        System.assertNotEquals( null, CloneOpportunityController.cloneOpportunityLineItems( opp.Id, clonedOppId, new List<Id>(mapOppLineItems.keySet()), new List<OpportunityLineItem>() ) );
+        
+        System.assertEquals( 1, [SELECT Id FROM OpportunityLineItem WHERE OpportunityId = :clonedOppId].size() );
         
         Test.stopTest();
     }

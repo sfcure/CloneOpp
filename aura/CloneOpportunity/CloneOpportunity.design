@@ -1,0 +1,6 @@
+<design:component>
+	<design:attribute name="title"
+                      label="Title"
+                      default="Edit Cloned Opportunity"
+                      description="Title of the popup on the page."/>
+</design:component>
