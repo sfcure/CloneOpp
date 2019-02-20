@@ -5,6 +5,18 @@ A Lightning Component to clone an opportunity record with it's related opportuni
 ![Idea on IdeaExchange](https://sfcure.files.wordpress.com/2018/06/clone-with-products.png)
 
 ## Packaged Release History
+## Release 1.4 ( Unmanaged package ) - Current
+- Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwJz)
+- Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwJz)
+   - Now, you can update cloned opportunity
+   - Add/Remove columns in the add product layout
+
+## Release 1.4 ( Managed package ) - Current
+- Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tf4000003f1Mn)
+- Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tf4000003f1Mn)
+   - Now, you can update cloned opportunity
+   - Add/Remove columns in the add product layout
+
 ## Release 1.2 ( Unmanaged package )
 - Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t7F000003iaKl)
 - Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000003iaKl)
@@ -26,20 +38,17 @@ You can can check the [GitHub Repository](https://github.com/sfcure/CloneOpp) fo
    - Click on Page Layouts link in the left side panel. Edit the desired page layout and look for the lightning action "Clone with Product" and drag that action and drop in the pane.
 ![Snapshot](https://sfcure.files.wordpress.com/2018/06/screenshot_101.png)
    
-
-3. ## Adding Fields to be copied over on Opportunity ( During cloning )
-   - First switch to Salesforce Classic view if you are in Lightning Experience ( This is because you can't access the fieldsets in LEX )
-   - Navigate to Setup | Customize | Opportunity | Field Sets
-   - Look for Clone Opportunity Field Set and click on Edit link
-   - Here you can add/remove fields which you want to copy in cloned opportunity
-4. ## Adding Fields to be copied over on Opportunity Product ( During cloning )
-   - First switch to Salesforce Classic view if you are in Lightning Experience ( This is because you can't access the fieldsets in LEX )
-   - Navigate to Setup | Customize | Opportunity Products | Field Sets
-   - Look for Clone Opportunity Field Set and click on Edit link
-   - Here you can add/remove fields which you want to copy in cloned opportunity
-
-![Snapshot](https://sfcure.files.wordpress.com/2018/06/screenshot_9.png)
+3. ## Configuring it for new columns and change behaviour of exisitng cloning functionality
+   - Go to Setup 
+   - Search for Custom Metadata Type in Quick Find box
+   - Click on Manage Records link next to Clone Opportunity Setting
+   - Click on New button to add new column on Cloned Product Layout. Label should be exactly same as the Field API Name which you wants to add You will see several checkboxes and their use is explained below -
+   Editable - Make the fields editable in the column
+   Cloneable - If you don't want to show the field on the layout but still want that to be cloned 
+   Sortable - Make the column sortable
+   Required - Make the field required on the product layout 
 
 
 ## Component will look like as shown in the following screenshot.
-![Snapshot](https://sfcure.files.wordpress.com/2018/06/clone-with-products.gif)
+![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Opportunity.png)
+![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Product.png)
