@@ -50,5 +50,5 @@ You can can check the [GitHub Repository](https://github.com/sfcure/CloneOpp) fo
 
 
 ## Component will look like as shown in the following screenshot.
-![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Opportunity.png)
-![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Products.png)
+![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Opportunity-1.png)
+![Snapshot](https://sfcure.com/wp-content/uploads/2019/02/Products-1.png)
