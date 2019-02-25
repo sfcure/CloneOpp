@@ -7,13 +7,13 @@ A Lightning Component to clone an opportunity record with it's related opportuni
 ## Packaged Release History
 ## Release 1.6 ( Unmanaged package ) - Current
 - Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwK9)
-- Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwK9)
+- Production/Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwK9)
    - Now, you can update cloned opportunity record
    - Add/Remove columns in the add product layout (2nd Screen)
 
 ## Release 1.5 ( Managed package ) - Current
 - Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tf4000004PpFF)
-- Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tf4000004PpFF)
+- Production/Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tf4000004PpFF)
    - Now, you can update cloned opportunity
    - Add/Remove columns in the add product layout
 
