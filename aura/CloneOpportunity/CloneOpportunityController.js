@@ -47,7 +47,7 @@
         $A.get("e.force:closeQuickAction").fire();
     },
     
-    navigateToOpp : function( component ) {
+    navigateToOpp : function( component, event, helper ) {
         helper.navigateToRecord(component.get("v.clonedOppRecordId"));
     },
 })
