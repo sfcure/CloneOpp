@@ -131,11 +131,19 @@ public class CloneOpportunityController {
             return dataColumnJson;
         }
         catch(Exception e) {
-            System.assert(false, e.getLineNumber() + ' : ' + e.getMessage());
+            System.debug(e.getLineNumber() + ' : ' + e.getMessage());
             throw new AuraHandledException(e.getLineNumber() + ' : ' + e.getMessage() );
         }
     }
     
+    
+     /**
+     * Method which will clone all opportunity line items 
+     * @param sourceOppRecordId : Record id of the source opportunity
+     * @param clonedOppRecordId : Id of the target opportunity record
+     * @param lstSourceLineItemIds : Id of line items from the source opportunity
+     * @param lstLineItemsChanges :  List of OpportunityLineItem object which has updated values                        
+     * */
     @AuraEnabled
     public static Id cloneOpportunityLineItems(Id sourceOppRecordId, Id clonedOppRecordId, List<Id> lstSourceLineItemIds, List<OpportunityLineItem> lstLineItemsChanges){
         
@@ -147,7 +155,7 @@ public class CloneOpportunityController {
             
             // Query opportunity line items from the source opportunity and 
             // use the fields which has been configured at custom metadata level
-            List<String> lstFieldsInQuery = new List<String>{ 'product2id', 'quantity', 'pricebookentryid' };
+            List<String> lstFieldsInQuery = new List<String>{ 'product2id', 'quantity', 'pricebookentryid', 'unitprice' };
                                                                   
             // Check the custom metadata level if fields are provided there 
             Map<String, Clone_Opportunity_Setting__mdt> mapOpportunityProductFields = new Map<String, Clone_Opportunity_Setting__mdt>();
@@ -155,25 +163,33 @@ public class CloneOpportunityController {
             
             Boolean isFieldsConfigured = false;
             for(Clone_Opportunity_Setting__mdt cos : CloneOpportunityController.getSetting()){
-                if(mapOpportunityProductDescribedFields.containsKey( cos.MasterLabel )) {
-                    Schema.DescribeFieldResult desribeResult = mapOpportunityProductDescribedFields.get( cos.MasterLabel ).getDescribe();
+                if(mapOpportunityProductDescribedFields.containsKey( cos.MasterLabel.toLowerCase() )) {
+                    Schema.DescribeFieldResult desribeResult = mapOpportunityProductDescribedFields.get( cos.MasterLabel.toLowerCase() ).getDescribe();
                     if(desribeResult.isCreateable() && ( cos.Cloneable__c || cos.Editable__c ) ) {
-                        mapOpportunityProductFields.put( cos.MasterLabel, cos );  
-                        
+                        mapOpportunityProductFields.put( cos.MasterLabel.toLowerCase(), cos );  
                     }
                     isFieldsConfigured = true;
                 }
             }
             //If no fields are not configured then use the hard-coded fields
             if(!isFieldsConfigured){
-                lstFieldsInQuery.addAll(new List<String>{'description', 'unitprice'});            
+                for( String fieldName : mapOpportunityProductDescribedFields.keySet() ){
+                    Schema.DescribeFieldResult desribeResult = mapOpportunityProductDescribedFields.get( fieldName ).getDescribe();
+                    // Add to the query field list  
+                    if( desribeResult.isCreateable() && !lstFieldsInQuery.contains(fieldName.toLowerCase() ) && fieldName.toLowerCase() != 'totalprice' ){
+                        lstFieldsInQuery.add( fieldName.toLowerCase() );
+                    }
+                }         
             }
             else {
                 for(String fieldName : mapOpportunityProductFields.keySet()){
-                    if(!lstFieldsInQuery.contains(fieldName.toLowerCase())){
-                        lstFieldsInQuery.add(fieldName.toLowerCase());
+                    if(!lstFieldsInQuery.contains(fieldName)){
+                        lstFieldsInQuery.add(fieldName);
                     }        
-                }       
+                } 
+                if( !(lstFieldsInQuery.contains('unitprice') || lstFieldsInQuery.contains('totalprice')) ) {
+                    lstFieldsInQuery.add('unitprice');
+                }
             }
             System.debug(lstFieldsInQuery);
             //Check for the required fields on opportunity line item object
@@ -188,9 +204,7 @@ public class CloneOpportunityController {
                        lstFieldsInQuery.add( fieldName.toLowerCase() );  
                 }
             }
-            if( !(lstFieldsInQuery.contains('unitprice') || lstFieldsInQuery.contains('totalprice')) ) {
-                lstFieldsInQuery.add('unitprice');
-            }
+            
             System.debug(' INCLUDING REQUIRED FIELDS : ' + lstFieldsInQuery);
             
             Map<Id, OpportunityLineItem> mapUpdatedOppLineItems = new Map<Id, OpportunityLineItem>();
@@ -230,10 +244,12 @@ public class CloneOpportunityController {
             return clonedOppRecordId;
         }
         catch(Exception e) {
-            System.assert(false, e.getLineNumber() + ' : ' + e.getMessage());
+            System.debug(e.getLineNumber() + ' : ' + e.getMessage());
             throw new AuraHandledException( e.getLineNumber() + ' : ' + e.getMessage() );
         }
-    }    
+    }  
+    
+    
     /**
      * This method is returning the allowed types for the column
      * Lightning data table supported types are being retuned based on the Schema.DisplayType enum
@@ -247,8 +263,11 @@ public class CloneOpportunityController {
             when DOUBLE, LONG, INTEGER {
                 columnType = 'number';
             }
-            when DATE, DATETIME {
+            when DATETIME {
                 columnType = 'date';
+            }
+            when DATE {
+                columnType = 'date-local';
             }
             when ADDRESS {
                 columnType = 'location';
@@ -283,6 +302,7 @@ public class CloneOpportunityController {
         Boolean editable;
         Boolean sortable;
         Boolean required;
+        Map<String, String> cellAttributes;   // To control the cell behaviour
         
         public Column(Schema.DescribeFieldResult field, Clone_Opportunity_Setting__mdt setting){
             this.label = field.getLabel();
@@ -291,6 +311,7 @@ public class CloneOpportunityController {
             this.editable = setting.Editable__c;
             this.sortable = setting.Sortable__c;
             this.required = setting.Required__c;
+            this.cellAttributes = new Map<String, String>{'alignment'=>'left'};
         }
         public Column(String label, String fieldName, String type, Boolean editable, Boolean sortable, Boolean required){
             this.label = required ? '*' + label : label;
@@ -299,6 +320,7 @@ public class CloneOpportunityController {
             this.editable = editable;
             this.sortable = sortable;
             this.required = required;
+            this.cellAttributes = new Map<String, String>{'alignment'=>'left'};
         }
         
     }
