@@ -1,4 +1,4 @@
-<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" controller="CloneOpportunityController">
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" controller="CloneOpportunityController">
     <aura:attribute name="title" type="String" default="Clone Opportunity"/>
     <aura:attribute name="saved" type="Boolean" default="false" />
     <aura:attribute name="showSpinner" type="Boolean" default="true" />
@@ -34,7 +34,14 @@
     </aura:html>    
     
     <div class="slds-modal__header custom-modal-header">
-        <h4 class="title slds-text-heading--medium" ><ui:outputText value="{!v.title}" /></h4>
+        <h4 class="title slds-text-heading--medium" >
+            <aura:if isTrue="{!!v.saved}">
+                <ui:outputText value="{!v.title}" />
+                <aura:set attribute="else">
+                    Edit All Products
+                </aura:set>
+            </aura:if>
+        </h4>
     </div>
     
     <div class="custom-modal-container">
