@@ -5,6 +5,10 @@ A Lightning Component to clone an opportunity record with it's related opportuni
 ![Idea on IdeaExchange](https://sfcure.files.wordpress.com/2018/06/clone-with-products.png)
 
 ## Packaged Release History
+## Release 1.7 ( Managed package ) - Current
+- Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tf4000004PpTF)
+- Production/Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tf4000004PpTF)
+   - Fixed bugs which was not showing the columns when you add new fields through custom metadata type
 ## Release 1.6 ( Unmanaged package ) - Current
 - Sandbox [Package Link](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwK9)
 - Production/Developer [Package Link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t7F000005QwK9)
